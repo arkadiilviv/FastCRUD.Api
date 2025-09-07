@@ -21,7 +21,7 @@ app.GenerateCRUD(humanRepository);
 ## Instalation
 Nuget
 ```
-dotnet add package FastCRUD.Api dotnet add package FastCRUD.Api 
+dotnet add package FastCRUD.Api
 ```
 Or manualy clone and build
 ## Endpoints Generated
