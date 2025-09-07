@@ -18,7 +18,7 @@ var humanRepository = new HumanRepository();
 app.GenerateCRUD(humanRepository);
 ```
 
-## Instalation
+## Installation
 Nuget
 ```
 dotnet add package FastCRUD.Api
