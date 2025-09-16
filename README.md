@@ -7,6 +7,7 @@ FastCRUD is a lightweight library for generating CRUD (Create, Read, Update, Del
 - Support for custom repositories via `IFastRepository<T, IdKey>`
 - Optional JWT authentication integration
 - Minimal API style for fast development
+- Different groups for same model repositories
 
 ## Usage
 1. Implement `IFastRepository<T, IdKey>` for your model.
@@ -36,3 +37,4 @@ Use `GenerateCRUDWithAuth` to require JWT authentication for all endpoints.
 
 ## License
 MIT
+
