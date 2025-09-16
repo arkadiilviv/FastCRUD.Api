@@ -13,6 +13,14 @@ public interface IFastRepository<T, IdKey>
 }
 public static class FastCRUD
 {
+	/// <summary>
+	/// Generating basic crud w/o auth
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	/// <typeparam name="IdKey"></typeparam>
+	/// <param name="app"></param>
+	/// <param name="repository"></param>
+	/// <returns></returns>
 	public static WebApplication GenerateCRUD<T, IdKey>(this WebApplication app, IFastRepository<T, IdKey> repository)
 	{
 		app.GenerateGet(repository);
@@ -22,7 +30,14 @@ public static class FastCRUD
 		app.GenerateGetById(repository);
 		return app;
 	}
-
+	/// <summary>
+	/// Generating basic crud with auth
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	/// <typeparam name="IdKey"></typeparam>
+	/// <param name="app"></param>
+	/// <param name="repository"></param>
+	/// <returns></returns>
 	public static WebApplication GenerateCRUDWithAuth<T, IdKey>(this WebApplication app, IFastRepository<T, IdKey> repository, string policy = "")
 	{
 		if (!string.IsNullOrEmpty(policy))
@@ -55,52 +70,52 @@ public static class FastCRUD
 
 	public static RouteHandlerBuilder GenerateGet<T, IdKey>(this WebApplication app, IFastRepository<T, IdKey> repository)
 	{
-		var route = app.MapGet($"/{typeof(T).Name}s", () =>
+		var route = app.MapGet($"/{repository.GetType().Name}/{typeof(T).Name}s", () =>
 		{
 			return repository.GetAll();
-		});
+		}).WithTags($"/{repository.GetType().Name}");
 
 		return route;
 	}
 
 	public static RouteHandlerBuilder GeneratePost<T, IdKey>(this WebApplication app, IFastRepository<T, IdKey> repository)
 	{
-		var route = app.MapPost($"/{typeof(T).Name}s", (T item) =>
+		var route = app.MapPost($"/{repository.GetType().Name}/{typeof(T).Name}s", (T item) =>
 		{
 			repository.Insert(item);
-			return Results.Created($"/{typeof(T).Name}s", item);
-		});
+			return Results.Created($"/{repository.GetType().Name}/{typeof(T).Name}s", item);
+		}).WithTags($"/{repository.GetType().Name}");
 
 		return route;
 	}
 
 	public static RouteHandlerBuilder GeneratePut<T, IdKey>(this WebApplication app, IFastRepository<T, IdKey> repository)
 	{
-		var route = app.MapPut($"/{typeof(T).Name}s/{{id}}", (int id, T item) =>
+		var route = app.MapPut($"/{repository.GetType().Name}/{typeof(T).Name}s/{{id}}", (int id, T item) =>
 		{
 			repository.Update(item);
 			return Results.NoContent();
-		});
+		}).WithTags($"/{repository.GetType().Name}");
 
 		return route;
 	}
 	public static RouteHandlerBuilder GenerateDelete<T, IdKey>(this WebApplication app, IFastRepository<T, IdKey> repository)
 	{
-		var route = app.MapDelete($"/{typeof(T).Name}s/{{id}}", (IdKey id) =>
+		var route = app.MapDelete($"/{repository.GetType().Name}/{typeof(T).Name}s/{{id}}", (IdKey id) =>
 		{
 			repository.Delete(id);
 			return Results.NoContent();
-		});
+		}).WithTags($"/{repository.GetType().Name}");
 
 		return route;
 	}
 
 	public static RouteHandlerBuilder GenerateGetById<T, IdKey>(this WebApplication app, IFastRepository<T, IdKey> repository)
 	{
-		var route = app.MapGet($"/{typeof(T).Name}s/{{id}}", (IdKey id) =>
+		var route = app.MapGet($"/{repository.GetType().Name}/{typeof(T).Name}s/{{id}}", (IdKey id) =>
 		{
 			return repository.GetById(id);
-		});
+		}).WithTags($"/{repository.GetType().Name}");
 
 		return route;
 	}

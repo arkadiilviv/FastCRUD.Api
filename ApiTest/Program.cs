@@ -71,12 +71,12 @@ if (app.Environment.IsDevelopment())
 
 // Use the FastCRUD to generate endpoints for HumanModel with authentication
 {
-	var humanRepository = new HumanRepository();
+	var humanRepository = new AuthHuman();
 	app.GenerateCRUDWithAuth(humanRepository);
 }
 // Use the FastCRUD to generate endpoints for HumanModel without authentication
 {
-	var humanRepository = new HumanRepositoryWOAuth();
+	var humanRepository = new HumanRepository();
 	app.GenerateGet(humanRepository);
 	app.GenerateGetById(humanRepository);
 	app.GeneratePost(humanRepository);

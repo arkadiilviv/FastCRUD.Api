@@ -8,10 +8,12 @@ namespace FasterAPI
 		public int Age { get; set; }
 		public string Occupation { get; set; }
 	}
-	public class HumanRepositoryWOAuth : HumanRepository { }
+
+	public class AuthHuman : HumanRepository { }
+
 	public class HumanRepository : IFastRepository<HumanModel, int>
 	{
-		private readonly List<HumanModel> _humans = new()
+		protected readonly List<HumanModel> _humans = new()
 		{
 			new HumanModel { Id = 1, Name = "Alice", Age = 30, Occupation = "Engineer" },
 			new HumanModel { Id = 2, Name = "Bob", Age = 25, Occupation = "Designer" },
