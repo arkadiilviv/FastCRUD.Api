@@ -18,6 +18,12 @@ var humanRepository = new HumanRepository();
 app.GenerateCRUD(humanRepository);
 ```
 
+## Installation
+Nuget
+```
+dotnet add package FastCRUD.Api
+```
+Or manualy clone and build
 ## Endpoints Generated
 - `GET /{ModelName}s` - Get all items
 - `GET /{ModelName}s/{id}` - Get item by ID
